@@ -1,6 +1,10 @@
 import "./main.css";
 
 const Main = () => {
+
+
+
+  
   return (
     <main className="main">
       <article>
@@ -16,9 +20,9 @@ const Main = () => {
         </section>
         <section>
           <div className="actions">
-            <button>points</button>
+            <button>Points</button>
             <button>Movements</button>
-            <button>loan</button>
+            <button>Loan</button>
           </div>
         </section>
       </article>

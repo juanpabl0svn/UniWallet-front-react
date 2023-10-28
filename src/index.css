@@ -14,3 +14,31 @@ main{
   display: grid;
   place-content: center;
 }
+
+
+header{
+  background: #c7c6c6;
+  height: 50px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+
+  & nav{
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    & a{
+      height: 100%;
+      display: grid;
+      place-content: center;
+      width: 100px;
+      color: white;
+      text-decoration: none;
+      transition: all 200ms ease;
+    }
+
+    & a:hover{
+      background: #b6b6b6;
+    }
+  }
+}
