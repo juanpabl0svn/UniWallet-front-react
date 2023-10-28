@@ -1,0 +1,46 @@
+main.main {
+  min-height: calc(100vh - 40px);
+
+  & article {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    & section {
+      /* background: #000; */
+      position: relative;
+      display: flex;
+      gap: 10px;
+
+      & div.actions{
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+
+        & button{
+          border-radius: 50%;
+          width: 80px;
+          height: 80px;
+          cursor: pointer;
+          transition: background 200ms ease;
+        }
+
+        & button:hover{
+          background: #c45a5a;
+        }
+      }
+
+
+      & div {
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 10px;
+      }
+
+      & .transaction {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+}

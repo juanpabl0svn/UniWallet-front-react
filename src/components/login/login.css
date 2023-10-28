@@ -1,0 +1,32 @@
+main.login {
+  min-height: 100vh;
+  position: relative;
+
+  & aside {
+    width: clamp(300px, 45vw, 600px);
+    height: clamp(400px, 55vh, 700px);
+    display: grid;
+    place-content: center;
+    position: relative;
+  }
+
+  & form {
+    background: #c4b5b5;
+    text-align: center;
+
+    & div {
+      display: flex;
+      position: relative;
+
+      & label{
+
+        position: absolute;
+      }
+
+    }
+
+    & div.actions {
+      flex-direction: column;
+    }
+  }
+}
