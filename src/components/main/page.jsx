@@ -1,12 +1,19 @@
 import "./main.css";
 
 const Main = () => {
+  async function getInfo() {
+    const req = await fetch();
 
-
-
+    if (!req.ok) return;
   
+    const data = await req.json();
+
+    console.log(data)
+  }
+
   return (
     <main className="main">
+      <button onClick={getInfo}>Buscar personas</button>
       <article>
         <section>
           <div className="transaction">
