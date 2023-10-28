@@ -1,13 +1,13 @@
 import { Outlet } from "react-router-dom";
 
+import { Link } from "react-router-dom";
 const Template = () => {
   return (
     <>
       <header>
         <nav>
-          <a href="#">Main</a>
-          <a href="#">Movements</a>
-          <a href="#">Info</a>
+          <Link to="/main">Main</Link>
+          <Link to="/main/movements">Movements</Link>
         </nav>
       </header>
       <Outlet />

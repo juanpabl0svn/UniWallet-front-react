@@ -1,3 +1,5 @@
+import { useUserContext } from "../../context";
+import MovementCard from "../movements/components/movement-card";
 import "./main.css";
 
 const Main = () => {
@@ -11,18 +13,21 @@ const Main = () => {
     console.log(data)
   }
 
+  const { userData } = useUserContext();
+
   return (
     <main className="main">
       <button onClick={getInfo}>Buscar personas</button>
       <article>
         <section>
           <div className="transaction">
-            <span>last transactions (less than 3)</span>
-            <span>last transactions (less than 3)</span>
-            <span>last transactions (less than 3)</span>
+            {userData.movements.slice(-4, -1).map((movement) => (
+              <MovementCard {...movement} key={movement.id} />
+            ))}
           </div>
           <div className="currency">
-            <span>Currency</span>
+            <span>Currency: {userData.currency}</span>
+            <span>Points: {userData.points}</span>
           </div>
         </section>
         <section>

@@ -1,0 +1,46 @@
+main.movements{
+  min-height: calc(100vh - 50px);
+
+  & h1.title{
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  & article{
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 55vh;
+    overflow-y: scroll;
+    padding: 30px;
+    border-radius: 30px;
+  }
+
+  & .card{
+    display: flex;
+    padding: 10px;
+    border-radius: 20px;
+    justify-content: space-between;
+    align-items: center;
+    width: 200px;
+
+    & div p:nth-child(2){
+      margin-left:10px ;
+      color: gray;
+    }
+
+  }
+
+  & .green{
+    background: #75df54;
+    
+  }
+
+  & .red{
+    background: #ec3b3b;
+  }
+
+}
