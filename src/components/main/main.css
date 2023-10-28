@@ -1,5 +1,5 @@
 main.main {
-  min-height: calc(100vh - 40px);
+  min-height: calc(100vh - 50px);
 
   & article {
     display: flex;
@@ -40,6 +40,12 @@ main.main {
       & .transaction {
         display: flex;
         flex-direction: column;
+      }
+
+      & .currency{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
       }
     }
   }
