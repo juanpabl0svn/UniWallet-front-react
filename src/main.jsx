@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom/client";
-import './firebase'
+import "./services/firebase";
 
 import "./index.css";
 
@@ -13,10 +13,16 @@ import Template from "./templates/template";
 import Main from "./components/main/page";
 import Movements from "./components/movements/page";
 
+import LoggedIn from "./routing/private-route-logged-in";
+
 const router = createBrowserRouter([
   {
     path: "/main",
-    element: <Template />,
+    element: (
+      <LoggedIn>
+        <Template />,
+      </LoggedIn>
+    ),
     children: [
       {
         path: "",

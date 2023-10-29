@@ -1,23 +1,35 @@
 main.main {
-  min-height: calc(100vh - 50px);
+  min-height: calc(100vh - 70px);
 
   & article {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: clamp(200px, 55vw, 400px);
 
     & section {
-      /* background: #000; */
       position: relative;
       display: flex;
       gap: 10px;
+      width: 100%;
+      text-align: center;
+      min-width: 400px;
 
-      & div.actions{
+      & div.transaction {
+        min-height: 100px;
+        min-width: 60% ;
+      }
+
+      & div.currency {
+        min-width: 26%;
+      }
+
+      & div.actions {
         width: 100%;
         display: flex;
         justify-content: space-around;
 
-        & button{
+        & button {
           border-radius: 50%;
           width: 80px;
           height: 80px;
@@ -25,11 +37,10 @@ main.main {
           transition: background 200ms ease;
         }
 
-        & button:hover{
+        & button:hover {
           background: #c45a5a;
         }
       }
-
 
       & div {
         border: 1px solid black;
@@ -42,7 +53,7 @@ main.main {
         flex-direction: column;
       }
 
-      & .currency{
+      & .currency {
         display: flex;
         flex-direction: column;
         justify-content: center;
