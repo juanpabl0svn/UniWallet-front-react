@@ -1,3 +1,4 @@
+import { Link, useNavigate } from "react-router-dom";
 import { useUserContext } from "../../context";
 import MovementCard from "../movements/components/movement-card";
 import "./main.css";
@@ -17,7 +18,9 @@ const Main = () => {
 
     return newList
       .slice(-4, -1)
-      .map((movement) => <MovementCard {...movement} key={movement.id} />);
+      .map((movement) => (
+        <MovementCard {...movement} key={crypto.randomUUID()} />
+      ));
   };
 
   return (
@@ -34,9 +37,15 @@ const Main = () => {
         </section>
         <section>
           <div className="actions">
-            <button>Points</button>
-            <button>Movements</button>
-            <button>Loan</button>
+            <Link to="/main/points">
+              <button>Points</button>
+            </Link>
+            <Link to="/main/movements">
+              <button>Movements</button>
+            </Link>
+            <Link to="/main/points">
+              <button>Loan</button>
+            </Link>
           </div>
         </section>
       </article>

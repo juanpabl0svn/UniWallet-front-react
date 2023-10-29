@@ -34,59 +34,65 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 
-const auth = getAuth();
+const auth = getAuth(app);
 
-async function register(username, email, password) {
-  // Primero verifica si el nombre de usuario ya existe
-  const usersColRef = collection(db, "users");
-  const q = query(usersColRef, where("username", "==", username));
-  const querySnapshot = await getDocs(q);
-
-  if (!querySnapshot.empty) {
-    console.error("Username already taken");
-    return;
-  }
-
-  // Si el nombre de usuario está disponible, registra el correo y contraseña con Firebase Auth
+async function getAuthToken({ username, password }) {
   try {
-    const userCredential = await createUserWithEmailAndPassword(
+    const userCredentialExist = await createUserWithEmailAndPassword(
       auth,
-      email,
+      username,
       password
     );
-    const user = userCredential.user;
 
-    // Aquí puedes añadir código para guardar el nombre de usuario en Firestore asociado a ese UID.
-    console.log("User registered:", user.uid);
-  } catch (error) {
-    console.error("Error registering user:", error.message);
+    return userCredentialExist;
+  } catch (err) {
+    if (err.code === "auth/email-already-in-use") {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        username,
+        password
+      );
+
+      return userCredential;
+    }
+    console.log(err);
+
+    return null;
   }
 }
 
-async function login(username, password) {
+export async function loginFirebase(username, password) {
   // Busca el correo asociado al nombre de usuario
   const usersColRef = collection(db, "users");
-  const q = query(usersColRef, where("username", "==", username));
+  const q = query(
+    usersColRef,
+    where("username", "==", username),
+    where("password", "==", password)
+  );
   const querySnapshot = await getDocs(q);
 
   if (querySnapshot.empty) {
     console.error("Username not found");
-    return;
+    return null;
   }
 
-  const userEmail = querySnapshot.docs[0].data().email; // Suponiendo que guardas el email bajo el campo 'email'
+  const { password: secretPassword, ...rest } = querySnapshot.docs[0].data();
 
-  // Ahora intenta iniciar sesión con Firebase Auth usando ese correo y la contraseña dada
   try {
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      userEmail,
-      password
-    );
-    const user = userCredential.user;
+    const { user } = await getAuthToken({ username, password });
+    if (user == null) {
+      console.log("Somthing went wrong");
+      return null;
+    }
     console.log("User logged in:", user.uid);
+
+    return {
+      token: user.uid,
+      ...rest,
+    };
   } catch (error) {
     console.error("Error logging in:", error.message);
+    return null;
   }
 }
 
@@ -103,6 +109,6 @@ export async function getUser(username, password) {
 }
 
 export async function addData(user) {
-  const userDocRef = doc(db, "users", "userID");
+  const userDocRef = doc(db, "users", user.id);
   await setDoc(userDocRef, user);
 }

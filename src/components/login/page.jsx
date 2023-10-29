@@ -3,6 +3,9 @@ import "./login.css";
 import { useUserContext } from "../../context";
 import { useNavigate } from "react-router-dom";
 import { hasASession } from "../../services/localStorage";
+import { loginFirebase } from "../../services/firebase";
+
+
 
 const Login = () => {
   const username = useRef();
@@ -19,16 +22,18 @@ const Login = () => {
     }
   }, []);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    setUserData({
-      name: "juan pablo",
-      username: username.current.value,
-      password: password.current.value,
-      currency: 2000,
-      points: 300,
-      movements: [],
-    });
+
+
+    const user = await loginFirebase(username.current.value,password.current.value)
+
+    if (user == null){
+      console.log('something went wrong')
+      return 
+    }
+    setUserData(user)
+  
 
     navigate("/main");
   }

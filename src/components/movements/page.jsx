@@ -7,14 +7,11 @@ const Movements = () => {
 
   const {userData} = useUserContext();
 
-
-
   return (
     <main className='movements'>
       <h1 className='title'>Movimientos</h1>
-
       <article>
-        {userData.movements.reverse().map(movement => <MovementCard key={movement.id} {...movement} />)}
+        {userData.movements.reverse().map(movement => <MovementCard key={crypto.randomUUID()} {...movement} />)}
       </article>
       
     </main>
