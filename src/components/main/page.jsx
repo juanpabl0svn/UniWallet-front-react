@@ -31,8 +31,8 @@ const Main = () => {
             <MovementList />
           </div>
           <div className="currency">
-            <span>Currency: {userData.currency}</span>
-            <span>Points: {userData.points}</span>
+            <span><strong>Currency:</strong> {userData.currency.toLocaleString("en-US", {style:"currency", currency:"USD"})}</span>
+            <span><strong style={{display :'block'}}>Points:</strong> {userData.points}</span>
           </div>
         </section>
         <section>

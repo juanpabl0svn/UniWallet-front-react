@@ -5,7 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { hasASession } from "../../services/localStorage";
 import { loginFirebase } from "../../services/firebase";
 
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
+const MySwal = withReactContent(Swal);
 
 const Login = () => {
   const username = useRef();
@@ -25,15 +28,20 @@ const Login = () => {
   async function handleSubmit(e) {
     e.preventDefault();
 
+    const user = await loginFirebase(
+      username.current.value,
+      password.current.value
+    );
 
-    const user = await loginFirebase(username.current.value,password.current.value)
-
-    if (user == null){
-      console.log('something went wrong')
-      return 
+    if (user == null) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Username or password are not correct",
+      });
+      return;
     }
-    setUserData(user)
-  
+    setUserData(user);
 
     navigate("/main");
   }

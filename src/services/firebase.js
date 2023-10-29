@@ -56,7 +56,6 @@ async function getAuthToken({ username, password }) {
       return userCredential;
     }
     console.log(err);
-
     return null;
   }
 }

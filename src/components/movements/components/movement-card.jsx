@@ -1,6 +1,5 @@
 import React from "react";
-const MovementCard = ({ type, amount, from ,date}) => {
-
+const MovementCard = ({ type, amount, from, date }) => {
   return (
     <section className={`card ${type ? "green" : "red"}`}>
       <div>
@@ -8,7 +7,7 @@ const MovementCard = ({ type, amount, from ,date}) => {
         <p>{from}</p>
       </div>
       <h1>
-        {type ? "+" : "-"} {amount}
+        {type ? "+" : "-"} {amount.toLocaleString("en-US", {style:"currency", currency:"USD"})}
       </h1>
     </section>
   );
