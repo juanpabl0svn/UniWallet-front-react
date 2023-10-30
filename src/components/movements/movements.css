@@ -28,6 +28,7 @@ main.movements {
     justify-content: space-between;
     align-items: center;
     width: 300px;
+    border: 1px solid gray;
 
     & div p:nth-child(2) {
       margin-left: 10px;
@@ -35,11 +36,8 @@ main.movements {
     }
   }
 
-  & .green {
-    background: #75df54;
+  & .gray {
+    background: #a2a3a2;
   }
 
-  & .red {
-    background: #ec3b3b;
-  }
 }

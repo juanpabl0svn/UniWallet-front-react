@@ -21,6 +21,7 @@ main.main {
         display: flex;
         justify-content: center;
 
+
         & section.card {
           min-width: 80%;
           display: flex;
@@ -33,6 +34,7 @@ main.main {
             left: 140px;
           }
 
+          
           & div.info {
             min-width: 80%;
 
