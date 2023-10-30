@@ -29,6 +29,7 @@ main.movements {
     align-items: center;
     width: 300px;
     border: 1px solid gray;
+    text-transform:capitalize;
 
     & div p:nth-child(2) {
       margin-left: 10px;

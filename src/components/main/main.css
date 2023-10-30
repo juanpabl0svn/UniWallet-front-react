@@ -20,7 +20,7 @@ main.main {
         min-width: 60%;
         display: flex;
         justify-content: center;
-
+        gap: 10px;
 
         & section.card {
           min-width: 80%;
@@ -34,16 +34,16 @@ main.main {
             left: 140px;
           }
 
-          
           & div.info {
-            min-width: 80%;
+            min-width: 90%;
 
-            & p{
+            & p {
               position: relative;
               right: 60px;
+              text-transform: capitalize;
             }
 
-            & p:nth-child(2){
+            & p:nth-child(2) {
               color: gray;
             }
           }

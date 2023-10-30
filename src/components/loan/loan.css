@@ -1,3 +1,11 @@
 main.loan{
   min-height: calc(100vh - 70px);
+  position: relative;
+
+  & h1{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
