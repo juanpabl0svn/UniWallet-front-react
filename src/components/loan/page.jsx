@@ -8,7 +8,7 @@ const Loan = () => {
       <form>
         <div>
           <label htmlFor="">Motivo</label>
-          <input type="text" />
+          <textarea required />
         </div>
 
         <div>

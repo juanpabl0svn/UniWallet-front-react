@@ -8,4 +8,34 @@ main.loan{
     left: 50%;
     transform: translateX(-50%);
   }
+
+  & form{
+    border: 1px solid gray;
+    display: grid;
+    place-content: center;
+    width: clamp(300px,45vw,600px);
+    height: clamp(400px,50vh,700px);
+    gap: 20px;
+
+
+    & textarea{
+      resize: none;
+      height: 50px;
+
+    }
+
+
+    & div{
+      display: flex;
+      flex-direction: column;
+    }
+
+    & input[type='submit']{
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 10px;
+      border: 1px solid gray;
+    }
+
+  }
 }
