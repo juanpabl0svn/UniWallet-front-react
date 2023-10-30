@@ -2,7 +2,7 @@ import React from "react";
 const MovementCard = ({ type, amount, from, date }) => {
   return (
     <section className={`card ${type ? "green" : "red"}`}>
-      <div>
+      <div className="info">
         <p>{date}</p>
         <p>{from}</p>
       </div>

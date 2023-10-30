@@ -16,6 +16,8 @@ const Template = () => {
         <nav>
           <Link to="/main">Main</Link>
           <Link to="/main/movements">Movements</Link>
+          <Link to="/main/points">Points</Link>
+          <Link to="/main/loan">Loan</Link>
           <Link onClick={handleClick}>Log out</Link>
         </nav>
       </header>

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import "./login.css";
 import { useUserContext } from "../../context";
 import { useNavigate } from "react-router-dom";
@@ -6,9 +6,9 @@ import { hasASession } from "../../services/localStorage";
 import { loginFirebase } from "../../services/firebase";
 
 import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 
-const MySwal = withReactContent(Swal);
+import EyeOpen from "./components/eye-open";
+import EyeClose from "./components/eye-close";
 
 const Login = () => {
   const username = useRef();
@@ -17,6 +17,8 @@ const Login = () => {
 
   const { userData, setUserData } = useUserContext();
 
+  const [seePassword, setSeePassword] = useState(false);
+
   useEffect(() => {
     const isLoggedInUser = hasASession(setUserData);
 
@@ -24,6 +26,8 @@ const Login = () => {
       navigate("/main");
     }
   }, []);
+
+  const handleClick = () => setSeePassword((lastValue) => !lastValue);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -39,6 +43,8 @@ const Login = () => {
         title: "Oops...",
         text: "Username or password are not correct",
       });
+
+      password.current.value = "";
       return;
     }
     setUserData(user);
@@ -62,7 +68,7 @@ const Login = () => {
           </div>
           <div>
             <input
-              type="password"
+              type={seePassword ? "text" : "password"}
               name="password"
               id="password"
               ref={password}
@@ -70,6 +76,11 @@ const Login = () => {
             />
 
             <label htmlFor="password"> Contraseña </label>
+            {seePassword ? (
+              <EyeClose handle={handleClick} />
+            ) : (
+              <EyeOpen handle={handleClick} />
+            )}
           </div>
           <a href="/signin">¿Olvidaste tu Contraseña?</a>
           <input type="submit" value="Ingresar" />

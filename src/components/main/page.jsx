@@ -31,8 +31,17 @@ const Main = () => {
             <MovementList />
           </div>
           <div className="currency">
-            <span><strong>Currency:</strong> {userData.currency.toLocaleString("en-US", {style:"currency", currency:"USD"})}</span>
-            <span><strong style={{display :'block'}}>Points:</strong> {userData.points}</span>
+            <span>
+              <strong>Currency:</strong>{" "}
+              {userData.currency.toLocaleString("en-US", {
+                style: "currency",
+                currency: "USD",
+              })}
+            </span>
+            <span>
+              <strong style={{ display: "block" }}>Points:</strong>{" "}
+              {userData.points}
+            </span>
           </div>
         </section>
         <section>
@@ -43,7 +52,7 @@ const Main = () => {
             <Link to="/main/movements">
               <button>Movements</button>
             </Link>
-            <Link to="/main/points">
+            <Link to="/main/loan">
               <button>Loan</button>
             </Link>
           </div>

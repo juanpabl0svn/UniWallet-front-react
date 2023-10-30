@@ -14,6 +14,8 @@ import Main from "./components/main/page";
 import Movements from "./components/movements/page";
 
 import LoggedIn from "./routing/private-route-logged-in";
+import Points from "./components/points/page";
+import Loan from "./components/loan/page";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +33,14 @@ const router = createBrowserRouter([
       {
         path: "movements",
         element: <Movements />,
+      },
+      {
+        path: "points",
+        element: <Points />,
+      },
+      {
+        path: "loan",
+        element: <Loan />,
       },
     ],
   },
