@@ -15,6 +15,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   getAuth,
+  onAuthStateChanged,
 } from "firebase/auth";
 
 // Your web app's Firebase configuration
@@ -35,6 +36,31 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 const auth = getAuth(app);
+
+export async function isTokenActive(token) {
+  const user = auth.currentUser;
+  if (user) {
+    try {
+      const tokenFromLocalStorage = token;
+      const idToken = await user.getIdToken(true);
+
+      if (tokenFromLocalStorage === idToken) {
+        // Token es válido y coincide con el actual
+        return { isValid: true, token: idToken };
+      } else {
+        // Token no es válido o no coincide con el actual
+        localStorage.setItem("firebaseToken", idToken); // Opcional: actualizar el token en localStorage
+        return { isValid: false, token: null };
+      }
+    } catch (error) {
+      console.error("Error verifying the token:", error);
+      return { isValid: false, token: null, error };
+    }
+  } else {
+    // No hay usuario logueado
+    return { isValid: false, token: null, error: "No user logged in" };
+  }
+}
 
 async function getAuthToken({ username, password }) {
   try {
