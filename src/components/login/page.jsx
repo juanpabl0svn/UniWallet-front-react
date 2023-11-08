@@ -3,7 +3,7 @@ import "./login.css";
 import { useUserContext } from "../../context";
 import { useNavigate } from "react-router-dom";
 import { hasASession } from "../../services/localStorage";
-import { loginFirebase } from "../../services/firebase";
+import { getUser } from "../../services/firebase";
 
 import Swal from "sweetalert2";
 
@@ -32,10 +32,10 @@ const Login = () => {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    const user = await loginFirebase(
+    const user = await getUser(
       username.current.value,
       password.current.value
-    );
+    ).catch(err => null)
 
     if (user == null) {
       Swal.fire({

@@ -18,6 +18,8 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 
+import { getDatabase, ref, onValue } from "firebase/database";
+
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -28,112 +30,133 @@ const firebaseConfig = {
   messagingSenderId: "1030143833926",
   appId: "1:1030143833926:web:93a8748576da6df93f9747",
   measurementId: "G-EGV6HBCR61",
+  databaseURL: "https://uniwa-d3190-default-rtdb.firebaseio.com/",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-const db = getFirestore(app);
+const db = getDatabase(app);
 
-const auth = getAuth(app);
-
-export async function isTokenActive(token) {
-  const user = auth.currentUser;
-  if (user) {
-    try {
-      const tokenFromLocalStorage = token;
-      const idToken = await user.getIdToken(true);
-
-      if (tokenFromLocalStorage === idToken) {
-        // Token es válido y coincide con el actual
-        return { isValid: true, token: idToken };
+export function getUser(username,password) {
+  const userRef = ref(db, `/`);
+  // Retorna una promesa que se resuelve con los datos del usuario
+  return new Promise((resolve, reject) => {
+    onValue(userRef, (snapshot) => {
+      const userData = snapshot.val();
+      const [user] = Object.values(userData).filter(user => user.email == username && user.password == password);
+      if (user) {
+        resolve(user);
       } else {
-        // Token no es válido o no coincide con el actual
-        localStorage.setItem("firebaseToken", idToken); // Opcional: actualizar el token en localStorage
-        return { isValid: false, token: null };
+        reject('No se encontraron datos del usuario');
       }
-    } catch (error) {
-      console.error("Error verifying the token:", error);
-      return { isValid: false, token: null, error };
-    }
-  } else {
-    // No hay usuario logueado
-    return { isValid: false, token: null, error: "No user logged in" };
-  }
+    }, {
+      onlyOnce: true
+    });
+  });
 }
 
-async function getAuthToken({ username, password }) {
-  try {
-    const userCredentialExist = await createUserWithEmailAndPassword(
-      auth,
-      username,
-      password
-    );
+// const db = getFirestore(app);
 
-    return userCredentialExist;
-  } catch (err) {
-    if (err.code === "auth/email-already-in-use") {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        username,
-        password
-      );
+// const auth = getAuth(app);
 
-      return userCredential;
-    }
-    console.log(err);
-    return null;
-  }
-}
+// export async function isTokenActive(token) {
+//   const user = auth.currentUser;
+//   if (user) {
+//     try {
+//       const tokenFromLocalStorage = token;
+//       const idToken = await user.getIdToken(true);
 
-export async function loginFirebase(username, password) {
-  // Busca el correo asociado al nombre de usuario
-  const usersColRef = collection(db, "users");
-  const q = query(
-    usersColRef,
-    where("username", "==", username),
-    where("password", "==", password)
-  );
-  const querySnapshot = await getDocs(q);
+//       if (tokenFromLocalStorage === idToken) {
+//         // Token es válido y coincide con el actual
+//         return { isValid: true, token: idToken };
+//       } else {
+//         // Token no es válido o no coincide con el actual
+//         localStorage.setItem("firebaseToken", idToken); // Opcional: actualizar el token en localStorage
+//         return { isValid: false, token: null };
+//       }
+//     } catch (error) {
+//       console.error("Error verifying the token:", error);
+//       return { isValid: false, token: null, error };
+//     }
+//   } else {
+//     // No hay usuario logueado
+//     return { isValid: false, token: null, error: "No user logged in" };
+//   }
+// }
 
-  if (querySnapshot.empty) {
-    console.error("Username not found");
-    return null;
-  }
+// async function getAuthToken({ username, password }) {
+//   try {
+//     const userCredentialExist = await createUserWithEmailAndPassword(
+//       auth,
+//       username,
+//       password
+//     );
 
-  const { password: secretPassword, ...rest } = querySnapshot.docs[0].data();
+//     return userCredentialExist;
+//   } catch (err) {
+//     if (err.code === "auth/email-already-in-use") {
+//       const userCredential = await signInWithEmailAndPassword(
+//         auth,
+//         username,
+//         password
+//       );
 
-  try {
-    const { user } = await getAuthToken({ username, password });
-    if (user == null) {
-      console.log("Somthing went wrong");
-      return null;
-    }
-    console.log("User logged in:", user.uid);
+//       return userCredential;
+//     }
+//     console.log(err);
+//     return null;
+//   }
+// }
 
-    return {
-      token: user.uid,
-      ...rest,
-    };
-  } catch (error) {
-    console.error("Error logging in:", error.message);
-    return null;
-  }
-}
+// export async function loginFirebase(username, password) {
+//   // Busca el correo asociado al nombre de usuario
+//   const usersColRef = collection(db, "users");
+//   const q = query(
+//     usersColRef,
+//     where("username", "==", username),
+//     where("password", "==", password)
+//   );
+//   const querySnapshot = await getDocs(q);
 
-export async function getUser(username, password) {
-  const usersColRef = collection(db, "users");
-  const q = query(
-    usersColRef,
-    where("username", "==", username),
-    where("password", "==", password)
-  );
-  const querySnapshot = await getDocs(q);
-  const users = querySnapshot.docs.map((doc) => doc.data());
-  console.log(users);
-}
+//   if (querySnapshot.empty) {
+//     console.error("Username not found");
+//     return null;
+//   }
 
-export async function addData(user) {
-  const userDocRef = doc(db, "users", user.id);
-  await setDoc(userDocRef, user);
-}
+//   const { password: secretPassword, ...rest } = querySnapshot.docs[0].data();
+
+//   try {
+//     const { user } = await getAuthToken({ username, password });
+//     if (user == null) {
+//       console.log("Somthing went wrong");
+//       return null;
+//     }
+//     console.log("User logged in:", user.uid);
+
+//     return {
+//       token: user.uid,
+//       ...rest,
+//     };
+//   } catch (error) {
+//     console.error("Error logging in:", error.message);
+//     return null;
+//   }
+// }
+
+// export async function getUser(username, password) {
+//   const usersColRef = collection(db, "users");
+//   const q = query(
+//     usersColRef,
+//     where("username", "==", username),
+//     where("password", "==", password)
+//   );
+//   const querySnapshot = await getDocs(q);
+//   const users = querySnapshot.docs.map((doc) => doc.data());
+//   console.log(users);
+// }
+
+// export async function addData(user) {
+//   const userDocRef = doc(db, "users", user.id);
+//   await setDoc(userDocRef, user);
+// }
