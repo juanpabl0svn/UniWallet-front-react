@@ -56,6 +56,24 @@ export function getUser(username,password) {
   });
 }
 
+
+export function getUserData(username) {
+  const userRef = ref(db, `/`);
+  // Retorna una promesa que se resuelve con los datos del usuario
+  return new Promise((resolve, reject) => {
+    onValue(userRef, (snapshot) => {
+      const userData = snapshot.val();
+      const [user] = Object.values(userData).filter(user => user.email == username);
+      if (user) {
+        resolve(user);
+      } else {
+        reject('No se encontraron datos del usuario');
+      }
+    }, {
+      onlyOnce: true
+    });
+  });
+}
 // const db = getFirestore(app);
 
 // const auth = getAuth(app);

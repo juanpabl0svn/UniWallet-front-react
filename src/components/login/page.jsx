@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { hasASession } from "../../services/localStorage";
 import { getUser } from "../../services/firebase";
 
+
+
 import Swal from "sweetalert2";
 
 import EyeOpen from "./components/eye-open";
@@ -24,6 +26,7 @@ const Login = () => {
 
     if (isLoggedInUser) {
       navigate("/main");
+      getUser
     }
   }, []);
 
