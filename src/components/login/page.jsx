@@ -23,6 +23,7 @@ const Login = () => {
 
   useEffect(() => {
     const isLoggedInUser = hasASession(setUserData);
+    console.log(isLoggedInUser)
 
     if (isLoggedInUser) {
       navigate("/main");
@@ -51,13 +52,14 @@ const Login = () => {
       return;
     }
     setUserData(user);
-
+    window.localStorage.setItem('userData', JSON.stringify(user))
     navigate("/main");
   }
 
   return userData == undefined ? (
     <main className="login">
       <article className="card">
+        <h1>UNIPAY</h1>
         <form onSubmit={handleSubmit}>
           <div>
             <input

@@ -8,21 +8,6 @@ export const useUserContext = () => useContext(UserContext);
 export default function Context({ children }) {
   const [userData, setUserData] = useState();
 
-  useEffect(() => {
-    if (userData) {
-      localStorage.setItem(
-        "userData",
-        JSON.stringify({
-          username: userData.email,
-          password: userData.password,
-        })
-      );
-    } else {
-      localStorage.removeItem("userData");
-    }
-    console.log();
-  }, [userData]);
-
   return (
     <UserContext.Provider value={{ userData, setUserData }}>
       {children}

@@ -1,19 +1,28 @@
 main.main {
-  min-height: calc(100vh - 70px);
+  min-height: calc(100vh - 68px);
 
   & article {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    width: clamp(200px, 55vw, 400px);
+    width: clamp(200px, 55vw, 80vw);
+    background: rgb(189, 188, 188);
+    height: clamp(200px, 40vw, 60vh);
+    padding: 50px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+      0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
+      0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+      0 100px 80px rgba(0, 0, 0, 0.12);
 
     & section {
       position: relative;
       display: flex;
       gap: 10px;
-      width: 100%;
-      text-align: center;
+      /* text-align: center; */
       min-width: 400px;
+      min-height: 170px;
 
       & div.transaction {
         min-height: 100px;
@@ -31,51 +40,62 @@ main.main {
 
           & h1 {
             position: absolute;
-            left: 140px;
+            right: 80px;
           }
 
           & div.info {
             min-width: 90%;
-
             & p {
               position: relative;
-              right: 60px;
+              left: 40px;
               text-transform: capitalize;
-            }
-
-            & p:nth-child(2) {
-              color: gray;
+              color: black;
             }
           }
         }
       }
 
       & div.currency {
-        min-width: 26%;
+        min-width: 32%;
+        text-align: center;
+
+        & strong {
+          font-size: 24px;
+        }
+
+        & p {
+          font-size: 18px;
+        }
       }
 
       & div.actions {
         width: 100%;
         display: flex;
         justify-content: space-around;
+        align-items: center;
+        border: 2px solid white;
 
         & button {
           border-radius: 50%;
-          width: 80px;
-          height: 80px;
+          width: 130px;
+          height: 130px;
           cursor: pointer;
-          transition: all 200ms ease;
+          background: #8b8686;
+          border: 1px solid rgb(100, 100, 100);
+          transition: all 200ms ease-in-out;
+          color: white;
+          font-size: 18px;
         }
 
         & button:hover {
-          background: #b1adad;
-          color: white;
-          border: 1px solid black;
+          background: #cfcdcd;
+          color: rgb(105, 104, 104);
+          border: 1.5px solid rgb(100, 95, 95);
         }
       }
 
       & div {
-        border: 1px solid black;
+        border: 1px solid rgb(255, 255, 255);
         border-radius: 10px;
         padding: 10px;
       }
@@ -83,12 +103,14 @@ main.main {
       & .transaction {
         display: flex;
         flex-direction: column;
+        border: 2px solid white;
       }
 
       & .currency {
         display: flex;
         flex-direction: column;
         justify-content: center;
+        border: 2px solid white;
       }
     }
   }

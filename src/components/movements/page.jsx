@@ -1,19 +1,20 @@
-import './movements.css'
-import { useUserContext } from '../../context';
-import MovementCard from './components/movement-card';
-
+import "./movements.css";
+import { useUserContext } from "../../context";
+import MovementCard from "./components/movement-card";
 
 const Movements = () => {
-
-  const {userData} = useUserContext();
+  const { userData } = useUserContext();
 
   return (
-    <main className='movements'>
-      <h1 className='title'>Movimientos</h1>
+    <main className="movements">
       <article>
-        {userData.movements.reverse().map(movement => <MovementCard key={crypto.randomUUID()} {...movement} />)}
+        <aside>
+          <h1 className="title">Movimientos</h1>
+          {userData.movements.reverse().map((movement) => (
+            <MovementCard key={crypto.randomUUID()} {...movement} />
+          ))}
+        </aside>
       </article>
-      
     </main>
   );
 };

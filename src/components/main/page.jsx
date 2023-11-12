@@ -32,15 +32,21 @@ const Main = () => {
           </div>
           <div className="currency">
             <span>
-              <strong>Currency:</strong>{" "}
-              {userData.currency.toLocaleString("en-US", {
-                style: "currency",
-                currency: "USD",
-              })}
+              <strong style={{ color: "white", display: "block" }}>
+                Currency:
+              </strong>
+              <p>
+                {userData.currency.toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                })}
+              </p>
             </span>
             <span>
-              <strong style={{ display: "block" }}>Points:</strong>{" "}
-              {userData.points}
+              <strong style={{ display: "block", color: "white" }}>
+                Points:
+              </strong>{" "}
+              <p>{userData.points}</p>
             </span>
           </div>
         </section>

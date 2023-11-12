@@ -16,8 +16,9 @@ const LoggedIn = ({ children }) => {
     } else {
       getUserData(isLoggedInUser)
         .then((value) => {
-          console.log(value)
-          setUserData(value)})
+          console.log(value);
+          setUserData(value);
+        })
         .catch((err) => console.log(err));
     }
   }, []);

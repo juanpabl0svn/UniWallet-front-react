@@ -1,14 +1,17 @@
 main.login {
-  --white: #ebdcdc;
-  --red: #706e6e;
-  --strong-red: #474646;
-  --stronger-white: #000000;
+  --white: #fffefe;
+  --red: rgb(211, 11, 11);
+  --strong-red: #a12323;
+  --stronger-white: #c2c2c2;
   width: 100%;
   min-height: 100vh;
   height: 100%;
   display: grid;
   place-content: center;
-  background: var(--white);
+
+  & .icon {
+    stroke: white;
+  }
 
   & .card {
     background: var(--red);
@@ -19,13 +22,19 @@ main.login {
     border-radius: 8px;
     display: grid;
     place-content: center;
+    position: relative;
+
+    & h1 {
+      position: absolute;
+      top: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
 
     & form {
       display: flex;
       flex-direction: column;
       gap: 40px;
-
-
 
       & a {
         text-decoration: none;
