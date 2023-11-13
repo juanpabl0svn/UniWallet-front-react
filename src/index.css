@@ -32,6 +32,10 @@ header {
     display: flex;
     align-items: center;
 
+    & img{
+      height: 100px;
+    }
+
     & a {
       height: 100%;
       display: grid;
