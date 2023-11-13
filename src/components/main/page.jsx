@@ -7,7 +7,9 @@ const Main = () => {
   const { userData } = useUserContext();
 
   const MovementList = () => {
-    const newList = [...userData.movements];
+    if (userData?.movements == undefined) return <p>Sin registros</p>;
+
+    const newList = [...userData.movements].reverse();
 
     if (newList.length == 0) return <p>Sin registros</p>;
 

@@ -29,7 +29,8 @@ const Loan = () => {
       )
       .catch(() =>
         Swal.fire({ title: "Upss!", text: "Algo salió mal", icon: "error" })
-      );
+      )
+      .finally(()=> window.location.reload());
   }
 
   return (
