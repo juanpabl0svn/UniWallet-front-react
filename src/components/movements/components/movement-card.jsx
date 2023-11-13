@@ -1,4 +1,5 @@
-const MovementCard = ({ type, amount, from, date }) => {
+const MovementCard = ({ type, amount, from, to
+  ,date }) => {
   return (
     <section className={`card ${type && "gray"}`}>
       <div className="info">

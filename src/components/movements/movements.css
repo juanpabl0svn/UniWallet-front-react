@@ -55,6 +55,7 @@ main.movements {
     & div p {
       margin-left: 20px;
       color: rgb(95, 73, 73);
+      max-width: 170px;
     }
   }
 
