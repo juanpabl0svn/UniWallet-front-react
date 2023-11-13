@@ -20,9 +20,7 @@ main.main {
       position: relative;
       display: flex;
       gap: 10px;
-      /* text-align: center; */
       min-width: 400px;
-      min-height: 170px;
 
       & div.transaction {
         min-height: 100px;
@@ -30,6 +28,7 @@ main.main {
         display: flex;
         justify-content: center;
         gap: 10px;
+        min-height: 150px;
 
         & section.card {
           min-width: 80%;
@@ -74,6 +73,8 @@ main.main {
         justify-content: space-around;
         align-items: center;
         border: 2px solid white;
+        min-height: 150px;
+
 
         & button {
           border-radius: 50%;

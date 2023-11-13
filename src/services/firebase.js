@@ -18,7 +18,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 
-import { getDatabase, ref, onValue } from "firebase/database";
+import { getDatabase, ref, onValue, update } from "firebase/database";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -38,42 +38,93 @@ const app = initializeApp(firebaseConfig);
 
 const db = getDatabase(app);
 
-export function getUser(username,password) {
+export function getUser(username, password) {
   const userRef = ref(db, `/`);
   // Retorna una promesa que se resuelve con los datos del usuario
   return new Promise((resolve, reject) => {
-    onValue(userRef, (snapshot) => {
-      const userData = snapshot.val();
-      const [user] = Object.values(userData).filter(user => user.email == username && user.password == password);
-      if (user) {
-        resolve(user);
-      } else {
-        reject('No se encontraron datos del usuario');
+    onValue(
+      userRef,
+      (snapshot) => {
+        const userData = snapshot.val();
+        const [user] = Object.values(userData).filter(
+          (user) => user.email == username && user.password == password
+        );
+        if (user) {
+          resolve(user);
+        } else {
+          reject("No se encontraron datos del usuario");
+        }
+      },
+      {
+        onlyOnce: true,
       }
-    }, {
-      onlyOnce: true
-    });
+    );
   });
 }
-
 
 export function getUserData(username) {
   const userRef = ref(db, `/`);
   // Retorna una promesa que se resuelve con los datos del usuario
   return new Promise((resolve, reject) => {
-    onValue(userRef, (snapshot) => {
-      const userData = snapshot.val();
-      const [user] = Object.values(userData).filter(user => user.email == username);
-      if (user) {
-        resolve(user);
-      } else {
-        reject('No se encontraron datos del usuario');
+    onValue(
+      userRef,
+      (snapshot) => {
+        const userData = snapshot.val();
+        const [user] = Object.values(userData).filter(
+          (user) => user.email == username
+        );
+        if (user) {
+          resolve(user);
+        } else {
+          reject("No se encontraron datos del usuario");
+        }
+      },
+      {
+        onlyOnce: true,
       }
-    }, {
-      onlyOnce: true
-    });
+    );
   });
 }
+
+export async function updateUserData(username, value) {
+  const userRef = ref(db, `/`);
+  return new Promise((resolve, reject) => {
+    onValue(
+      userRef,
+      (snapshot) => {
+        const userData = snapshot.val();
+        const [key] = Object.keys(userData).filter(
+          (key) => userData[key].email == username
+        );
+        if (key) {
+          const user = userData[key];
+          user.currency = parseFloat(user.currency) + parseFloat(value);
+          if (user?.movements == undefined) {
+            user.movements = [];
+          }
+          const newMovement = {
+            amount: parseFloat(value),
+            from: "Admin",
+            to: `${user.name} ${user.surname}`,
+            type: true,
+          };
+          user.movements.push(newMovement);
+
+          userData[key] = user;
+          update(userRef, userData)
+            .then(() => resolve("Succes"))
+            .catch(() => reject("Not succes"));
+        } else {
+          reject("No se encontraron datos del usuario");
+        }
+      },
+      {
+        onlyOnce: true,
+      }
+    );
+  });
+}
+
 // const db = getFirestore(app);
 
 // const auth = getAuth(app);

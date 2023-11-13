@@ -28,10 +28,13 @@ main.movements {
       0 100px 80px rgba(0, 0, 0, 0.12);
   }
 
-  & aside{
+  & aside {
     margin-top: 40px;
     overflow-y: auto;
     height: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
   & .card {
@@ -45,7 +48,9 @@ main.movements {
     text-transform: capitalize;
     background: #eeebeb;
 
-
+    & h1 {
+      padding-right: 20px;
+    }
 
     & div p {
       margin-left: 20px;
@@ -54,6 +59,6 @@ main.movements {
   }
 
   & .gray {
-    border-color: rgb(27, 172, 97);;
+    border-color: rgb(27, 172, 97);
   }
 }

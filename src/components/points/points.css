@@ -4,22 +4,28 @@ main.points {
 
   & h1 {
     position: absolute;
-    top: 0;
+    top: 20px;
     left: 50%;
     transform: translateX(-50%);
   }
 
   & aside {
+    padding: 20px;
     display: flex;
     flex-direction: column;
     width: clamp(300px, 40vw, 500px);
-    gap: 2px;
+    gap: 3px;
     margin-top: 50px;
+    background: rgb(189, 188, 188);
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    margin-top: 80px;
+
 
     & article {
       display: flex;
       text-align: center;
-      border: 1px solid gray;
+      border: 1px solid rgb(255, 255, 255);
       border-radius: 5px;
 
       & img {
@@ -42,10 +48,14 @@ main.points {
         width: 70px;
         height: 30px;
         cursor: pointer;
+        transition: all 150ms ease-in-out;
       }
 
       & button:hover {
-        background: #a2a3a2;
+        background: rgb(241, 26, 26);
+        color: white;
+        border: 1px solid white;
+
       }
     }
   }

@@ -2,6 +2,8 @@ import "./movements.css";
 import { useUserContext } from "../../context";
 import MovementCard from "./components/movement-card";
 
+
+
 const Movements = () => {
   const { userData } = useUserContext();
 
